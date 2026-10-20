@@ -2,17 +2,16 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="description" content="Medieval : l’appli de sceaux pour les chevaliers et les châtelains">
-<meta name="theme-color" content="#1a0f08">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4 8 14v18c0 14 10 24 24 28 14-4 24-14 24-28V14z' fill='%23c9a227' stroke='%237a5a12' stroke-width='3'/%3E%3Cpath d='M22 30h20M32 20v20' stroke='%231a0f08' stroke-width='4'/%3E%3C/svg%3E">
+<meta name="description" content="Medieval : l’appli de sceaux pour les chevaliers">
+<meta name="theme-color" content="#f4e4c1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23c9a227'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='42' font-weight='bold' text-anchor='middle' fill='%231a0f08'%3EM%3C/text%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Medieval – sceaux des chevaliers</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=MedievalSharp&family=Crimson+Text:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Crimson+Text:wght@400;600;700&display=swap">
 <style>
 :root{
   --bg:#1a0f08;--bg2:#2d1a0e;--tx:#f4e4c1;--mu:#a8855a;--ac:#c9a227;--ac2:#8b3a1a;
-  --ok:#7fb069;--ko:#a83232;--card:#2a1a10;--bd:#4a2e18;
-  color-scheme:dark;
+  --ok:#7fb069;--ko:#a83232;--card:#2a1a10;--bd:#4a2e18;color-scheme:dark;
 }
 :root[data-t="light"]{
   --bg:#f4e4c1;--bg2:#e8d4a8;--tx:#2a1a10;--mu:#7a5a3a;--ac:#8b3a1a;--ac2:#c9a227;
@@ -20,13 +19,10 @@
 }
 *{box-sizing:border-box;margin:0}
 html,body{height:100%}
-body{
-  font-family:"Crimson Text",Georgia,serif;
-  background:var(--bg2);color:var(--tx);display:flex;justify-content:center;
-}
+body{font-family:"Crimson Text",Georgia,serif;background:var(--bg2);color:var(--tx);display:flex;justify-content:center;font-size:16px}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 .app{width:100%;max-width:430px;height:100%;background:var(--bg);display:flex;flex-direction:column;position:relative;overflow:hidden}
-header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--bd)}
+header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--bd);background:var(--bg2)}
 header h1{font:800 20px Cinzel,serif;letter-spacing:.08em;color:var(--ac);text-shadow:0 1px 2px #0008}
 header .sp{flex:1}
 .dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 6px var(--ok)}
@@ -34,11 +30,16 @@ header .sp{flex:1}
 main{flex:1;overflow:hidden;position:relative}
 .view{position:absolute;inset:0;overflow-y:auto;padding:0 16px 16px;display:none}
 .view.on{display:block}
-nav{display:flex;border-top:1px solid var(--bd);background:var(--bg)}
+nav{display:flex;border-top:1px solid var(--bd);background:var(--bg2)}
 nav button{flex:1;background:none;border:0;color:var(--mu);padding:12px 0 10px;font:600 12px Cinzel,serif;cursor:pointer;letter-spacing:.04em}
 nav button.on{color:var(--ac)}
 nav button span{display:block;font-size:20px}
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+/* barre d'actions flottante */
+.fab{position:absolute;bottom:86px;right:12px;display:flex;flex-direction:column;gap:8px;z-index:6}
+.fab button{width:48px;height:48px;border-radius:50%;border:2px solid var(--ac);background:var(--card);color:var(--tx);font-size:20px;cursor:pointer;box-shadow:0 4px 12px #0006;display:grid;place-items:center}
+.fab button:hover{background:var(--ac);color:#1a0f08}
+.fab button.primary{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#1a0f08;border-color:var(--ac)}
 /* caméra */
 .cam{position:relative;aspect-ratio:9/14;border-radius:24px;overflow:hidden;background:#000;border:2px solid var(--bd);box-shadow:inset 0 0 0 4px #0006,0 4px 20px #0008}
 .cam canvas{width:100%;height:100%;display:block}
@@ -52,7 +53,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 .chip:hover{border-color:var(--ac)}
 .chip.on{background:var(--ac);border-color:var(--ac);color:#1a0f08}
 .txt{width:100%;padding:12px 14px;border-radius:6px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:600 14px "Crimson Text",serif;font-family:inherit}
-/* listes */
 h2{font:800 15px Cinzel,serif;margin:16px 0 10px;color:var(--ac);letter-spacing:.05em}
 .row{display:flex;align-items:center;gap:12px;padding:10px;border-radius:6px;background:var(--card);margin-bottom:8px;cursor:pointer;border:1px solid transparent;transition:.15s}
 .row:hover{border-color:var(--bd)}
@@ -65,7 +65,6 @@ h2{font:800 15px Cinzel,serif;margin:16px 0 10px;color:var(--ac);letter-spacing:
 .snaps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .snaps img{width:100%;aspect-ratio:9/14;object-fit:cover;border-radius:6px;cursor:pointer;border:1px solid var(--bd)}
 .empty{color:var(--mu);font-size:13px;padding:10px 0;font-style:italic}
-/* conversation */
 .conv{position:absolute;inset:0;background:var(--bg);display:none;flex-direction:column;z-index:5}
 .conv.on{display:flex}
 .conv .top{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--bd);background:var(--bg2)}
@@ -76,7 +75,6 @@ h2{font:800 15px Cinzel,serif;margin:16px 0 10px;color:var(--ac);letter-spacing:
 .send{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--bd);background:var(--bg2)}
 .send button,.btn{border:0;border-radius:6px;background:var(--ac);color:#1a0f08;font:800 14px Cinzel,serif;padding:0 18px;cursor:pointer;min-height:44px;letter-spacing:.04em}
 .btn.alt{background:var(--card);color:var(--tx);border:1px solid var(--bd)}
-/* contrôle */
 .srv{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;background:var(--card);margin-bottom:8px;border:1px solid var(--bd)}
 .srv .nm{flex:1;font-size:14px;font-weight:600;font-family:Cinzel,serif}.srv small{display:block;color:var(--mu);font-weight:400;font-size:11px;font-family:"Crimson Text",serif}
 .sw{position:relative;width:46px;height:26px;flex:none}
@@ -95,14 +93,33 @@ h2{font:800 15px Cinzel,serif;margin:16px 0 10px;color:var(--ac);letter-spacing:
 .viewer{position:absolute;inset:0;background:#000;z-index:8;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#fff}
 .viewer.on{display:flex}
 .viewer img{width:80%;border-radius:12px;border:2px solid var(--ac)}
-#boot{position:absolute;inset:0;z-index:20;background:radial-gradient(circle at 50% 40%,#3a1a08,#1a0f08 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:32px;color:var(--tx);transition:opacity .6s}
+/* écran de démarrage clair, police normale */
+#boot{
+  position:absolute;inset:0;z-index:20;
+  background:linear-gradient(160deg,#f4e4c1 0%,#e8d4a8 50%,#c9a227 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:18px;padding:32px;color:#2a1a10;transition:opacity .6s;
+  font-family:"Crimson Text",Georgia,serif;
+}
 #boot.off{opacity:0;pointer-events:none}
-#boot h1{font:800 34px Cinzel,serif;letter-spacing:.16em;color:var(--ac);text-shadow:0 2px 8px #000}
-.track{width:70%;height:6px;border-radius:3px;background:#ffffff1a;overflow:hidden;border:1px solid var(--bd)}
-#bar{height:100%;width:0;background:linear-gradient(90deg,var(--ac2),var(--ac));transition:width 15s linear}
-#bootLog{width:80%;height:110px;overflow:hidden;font:12px/1.7 ui-monospace,Menlo,monospace;color:#e8c98a}
-@keyframes eye{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
-#boot svg{animation:eye 3s infinite}
+#boot .logo-m{
+  width:110px;height:110px;border-radius:20px;
+  background:linear-gradient(135deg,#c9a227,#8b3a1a);
+  display:grid;place-items:center;
+  font:bold 68px Georgia,"Times New Roman",serif;
+  color:#f4e4c1;text-shadow:0 2px 4px #0006;
+  box-shadow:0 4px 20px #8b3a1a66;
+}
+#boot h1{
+  font:600 32px "Crimson Text",Georgia,serif;
+  letter-spacing:.14em;color:#2a1a10;text-shadow:none;
+}
+.track{width:70%;height:6px;border-radius:3px;background:#0000001a;overflow:hidden;border:1px solid #8b3a1a55}
+#bar{height:100%;width:0;background:linear-gradient(90deg,#8b3a1a,#c9a227);transition:width 15s linear}
+#bootLog{
+  width:85%;height:110px;overflow:hidden;
+  font:12px/1.7 ui-monospace,Menlo,monospace;color:#5a3a1a;
+}
 .tools{position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:8px}
 .tools button{width:42px;height:42px;border-radius:50%;border:2px solid var(--bd);background:#000a;color:#fff;font-size:18px;cursor:pointer}.tools button.on{background:var(--ac);color:#1a0f08;border-color:var(--ac)}
 #dw{position:absolute;inset:0;pointer-events:none;touch-action:none}
@@ -146,6 +163,11 @@ textarea.txt{min-height:70px;resize:none}
 .tc{background:var(--card);color:var(--tx);border-radius:12px;padding:18px;width:100%;border:1px solid var(--ac)}.tc b{font:800 16px Cinzel,serif;color:var(--ac)}.tc p{margin:8px 0 12px;font-size:14px;line-height:1.5}
 .td{display:flex;gap:6px;margin-bottom:12px}.td i{width:8px;height:8px;border-radius:50%;background:var(--bd)}.td i.on{background:var(--ac)}
 #tour{position:absolute;inset:0;z-index:15;background:#000a;display:none;align-items:flex-end;padding:16px}#tour.on{display:flex}
+/* panneau serveur */
+#srvPanel{position:absolute;inset:0;z-index:16;background:#000a;display:none;align-items:flex-end}#srvPanel.on{display:flex}
+#srvPanel .sc2{border-color:var(--ac)}
+.srvurl{display:flex;gap:8px;margin-bottom:8px}
+.srvurl input{flex:1}
 @media (prefers-reduced-motion:reduce){nav .plus svg,.big{animation:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -153,10 +175,9 @@ textarea.txt{min-height:70px;resize:none}
 <body>
 <div class="app">
 <header>
-<svg width="34" height="34" viewBox="0 0 64 64" aria-label="Blason Medieval">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8c98a"/><stop offset="1" stop-color="#8b3a1a"/></linearGradient></defs>
-  <path d="M32 4 8 14v18c0 14 10 24 24 28 14-4 24-14 24-28V14z" fill="url(#g)" stroke="#c9a227" stroke-width="3"/>
-  <path d="M22 30h20M32 20v20" stroke="#1a0f08" stroke-width="4"/>
+<svg width="34" height="34" viewBox="0 0 64 64" aria-label="Logo Medieval M">
+  <rect width="64" height="64" rx="12" fill="#c9a227"/>
+  <text x="32" y="46" font-family="Georgia,serif" font-size="42" font-weight="bold" text-anchor="middle" fill="#1a0f08">M</text>
 </svg>
 <h1>MEDIEVAL</h1><span class="sp"></span>
 <span id="stTxt" style="font-size:12px;color:var(--mu)"></span><span class="dot" id="stDot"></span>
@@ -206,10 +227,12 @@ textarea.txt{min-height:70px;resize:none}
 <section class="view" id="v-prof"><div id="profBox"></div></section>
 <section class="view" id="v-ctrl">
   <button class="chip" onclick="go('prof')">← Profil</button>
+  <h2>Serveur</h2>
+  <div id="srvPanelBox"></div>
   <h2>Forteresses</h2><div id="servers"></div>
   <h2>Décrets</h2><div id="toggles"></div>
   <h2>Chronique du royaume</h2><div class="log" id="log"></div>
-  <div style="display:flex;gap:8px;margin-top:12px">
+  <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
     <button class="btn alt" id="rst">Réinitialiser le royaume</button>
     <button class="btn alt" id="dlpy">Télécharger server.py</button>
   </div>
@@ -284,6 +307,18 @@ textarea.txt{min-height:70px;resize:none}
     <button class="btn" id="tNext">Suivant</button>
   </div>
 </div></div>
+<div id="srvPanel"><div class="sc2">
+  <b style="font-family:Cinzel,serif;color:var(--ac)">Connexion au serveur</b>
+  <p class="empty" style="margin:0">URL du backend Python (ex. http://localhost:8000)</p>
+  <div class="srvurl">
+    <input class="txt" id="srvUrl" placeholder="https://mon-serveur.exemple.com">
+    <button class="btn" id="srvSave">OK</button>
+  </div>
+  <div class="wrap" style="margin:0">
+    <button class="btn alt" id="srvTest">Tester</button>
+    <button class="btn alt" id="srvClose">Fermer</button>
+  </div>
+</div></div>
 </main>
 <nav id="nav">
   <button data-v="story" class="on"><span>🏰</span>Accueil</button>
@@ -302,13 +337,17 @@ textarea.txt{min-height:70px;resize:none}
   <button data-v="chat"><span>💬</span>Messages</button>
   <button data-v="prof"><span>⚔️</span>Profil</button>
 </nav>
+<!-- barre d'actions flottante -->
+<div class="fab">
+  <button id="fabPub" class="primary" aria-label="Publier" title="Publier">＋</button>
+  <button id="fabProf" aria-label="Profil" title="Profil">⚔️</button>
+  <button id="fabGuide" aria-label="Guide" title="Guide">❓</button>
+  <button id="fabSrv" aria-label="Serveur" title="Serveur">🌐</button>
+</div>
 <noscript><p style="padding:20px;color:#fff">Medieval a besoin de JavaScript pour fonctionner.</p></noscript>
 <div class="toast" id="toast"></div>
 <div id="boot">
-  <svg width="110" height="110" viewBox="0 0 64 64" aria-hidden="true">
-    <path d="M32 4 8 14v18c0 14 10 24 24 28 14-4 24-14 24-28V14z" fill="url(#g)" stroke="#c9a227" stroke-width="3"/>
-    <path d="M22 30h20M32 20v20" stroke="#1a0f08" stroke-width="4"/>
-  </svg>
+  <div class="logo-m">M</div>
   <h1>MEDIEVAL</h1>
   <div class="track"><div id="bar"></div></div>
   <div id="bootLog" aria-live="polite"></div>
@@ -343,7 +382,7 @@ const TOG=[
 const FR=[["Tigra","🐯"],["Pumo","🐆"],["Léo","🦁"],["Nala","😼"],["Mon IA","✨"],["Ordre des Félins","👥"],["Mistral","🐈‍⬛"]];
 const FILT=[["Normal","none"],["Ambre","sepia(.9) saturate(2)"],["Néon","hue-rotate(260deg) saturate(2.2)"],["Nuit","brightness(.7) contrast(1.4)"],["Gravure","grayscale(1) contrast(1.2)"]];
 let S={srv:{},tog:{},chats:{},snaps:[],streak:0,seen:{},logs:[]};
-SERVERS.forEach(s=>S.srv[s[0]]=true);
+SERVERS.forEach(s=>S.srv[s[0]]=false); // désactivé par défaut, activé si backend joignable
 TOG.forEach(t=>S.tog[t[0]]=!!t[2]);
 let filt=0,cur=null,t0=0;
 try{const r=localStorage.getItem("medieval");if(r){const o=JSON.parse(r);S=Object.assign(S,o)}}catch(e){}
@@ -364,6 +403,7 @@ function status(){
   const on=SERVERS.filter(s=>S.srv[s[0]]).length;
   $("#stTxt").textContent=on+"/"+SERVERS.length+" forteresses";
   $("#stDot").className="dot"+(on<SERVERS.length?" off":"");
+  $("#stTxt").style.color=on<SERVERS.length?"var(--ko)":"var(--ok)";
 }
 /* nav */
 $("#nav").onclick=e=>{const b=e.target.closest("button");if(b)go(b.dataset.v)};
@@ -524,6 +564,15 @@ function drawCtrl(){
     d.appendChild(sw(S.tog[t[0]],v=>{S.tog[t[0]]=v;save();log(t[1]+" : "+(v?"activé":"désactivé"));apply()},t[1]));
     tg.appendChild(d);
   });
+  drawSrvPanel();
+}
+function drawSrvPanel(){
+  const el=$("#srvPanelBox");
+  el.innerHTML='<p class="empty" style="margin:0 0 8px">Backend Python : '+(API.ok?'<b style="color:var(--ok)">connecté</b> à '+API.url:'<b style="color:var(--ko)">non joignable</b> — mode local')+'</p>';
+  const b=document.createElement("button");
+  b.className="btn";b.textContent=API.ok?"Changer d’URL":"Configurer le serveur";
+  b.onclick=()=>{$("#srvUrl").value=localStorage.getItem("medieval_url")||"";$("#srvPanel").classList.add("on")};
+  el.appendChild(b);
 }
 function apply(){
   document.documentElement.dataset.t=S.tog.dark?"dark":"light";
@@ -552,6 +601,8 @@ function go(v){
   if(v=="chat")drawFriends();
   if(v=="cam"&&!$("#tour").classList.contains("on"))startCam();
   if(v!="story")stopSong();else drawSpot();
+  // cacher le FAB sur la caméra pour ne pas gêner
+  document.querySelector(".fab").style.display=(v=="cam")?"none":"flex";
 }
 const LENS=[["Aucune",""],["Cornes","🦌"],["Couronne","👑"],["Heaume","⛑️"],["Cœurs","💖"],["Flammes","🔥"]];
 let lens=0,flip=false,timerOn=false;
@@ -586,7 +637,6 @@ dw.onpointerup=()=>{pen=false};
 $("#tFlip").onclick=()=>{flip=!flip;cv.style.transform=flip?"scaleX(-1)":"";$("#tFlip").classList.toggle("on",flip)};
 $("#tTim").onclick=()=>{timerOn=!timerOn;$("#tTim").classList.toggle("on",timerOn);toast(timerOn?"Minuteur 3 s activé":"Minuteur coupé")};
 $("#tFl").onclick=()=>{S.tog.flash=!S.tog.flash;save();$("#tFl").classList.toggle("on",!!S.tog.flash);drawCtrl()};
-/* FIX bug score à 9 snaps : comparer par id, pas par présence */
 const _shut=$("#shut").onclick;
 $("#shut").onclick=async()=>{
   if(timerOn){for(let i=3;i>0;i--){$("#ov").textContent=i;await new Promise(r=>setTimeout(r,800))}$("#ov").textContent=$("#txtIn").value}
@@ -667,8 +717,10 @@ function drawProf(){
     h+='</div>';
   }
   h+='<h2>Archives</h2>'+(S.mem.length?'<div class="snaps">'+S.mem.map(m=>'<img alt="Archive" src="'+m+'">').join("")+'</div>':'<p class="empty">Ouvre un sceau et touche « Archives » pour le garder.</p>')+'';
-  h+='<div class="wrap" style="margin-top:12px"><button class="btn" id="pubB">＋ Publier</button></div><h2>Mon nom</h2><input class="txt" id="pseudo" maxlength="20"><h2>Mes chroniques</h2><div id="myPosts"></div><h2>Décrets personnels</h2><div id="prefs"></div><div class="wrap" style="margin-top:16px"><button class="btn" id="helpB">Guide du royaume</button></div>';
-  $("#profBox").innerHTML=h;drawPrefs();profExtra();$("#helpB").onclick=()=>tour(0);
+  h+='<div class="wrap" style="margin-top:12px"><button class="btn" id="pubB">＋ Publier</button></div><h2>Mon nom</h2><input class="txt" id="pseudo" maxlength="20"><h2>Mes chroniques</h2><div id="myPosts"></div><h2>Décrets personnels</h2><div id="prefs"></div><div class="wrap" style="margin-top:16px"><button class="btn" id="helpB">Guide du royaume</button><button class="btn alt" id="adminB">Administration</button></div>';
+  $("#profBox").innerHTML=h;drawPrefs();profExtra();
+  $("#helpB").onclick=()=>tour(0);
+  $("#adminB").onclick=()=>go("ctrl");
 }
 $("#profBox").onclick=e=>{
   const a=e.target.closest("[data-a]"),q=e.target.closest("[data-q]");
@@ -682,7 +734,6 @@ vid.style.cssText="position:fixed;width:1px;height:1px;opacity:0;pointer-events:
 document.body.appendChild(vid);
 let camOn=false,camTried=false;
 async function startCam(){
-  /* FIX : réessayer après refus */
   if(camOn||!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return;
   try{
     vid.srcObject=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:false});
@@ -707,10 +758,10 @@ const TOUR=[
   ["Bienvenue sur Medieval","Une appli de sceaux pour les chevaliers et châtelains. Ce guide de 30 secondes te montre tout.","story"],
   ["Grande Place","Fais glisser vers le haut pour la chronique suivante. Double-tape pour aimer. Touche le + sur l’avatar pour prêter serment. 💬 ouvre le chat avec le chroniqueur.","story"],
   ["Caméra : Saturne","Touche la planète Saturne. Choisis un filtre ou une lens, écris un texte, ajoute un sticker ou dessine avec ✏️, puis appuie sur le gros bouton rond. ⏱ lance un minuteur de 3 s.","cam"],
-  ["Publier","Touche ＋ en haut de l’accueil : sceau de 60 s, chronique jusqu’à 200 min, enluminure ou parchemin, avec une mélodie au choix. Tu peux modifier ou supprimer ta publication. On peut commenter, répondre, aimer, partager et prêter serment.","story"],
+  ["Publier","Touche ＋ (bouton flottant) : sceau de 60 s, chronique jusqu’à 200 min, enluminure ou parchemin, avec une mélodie au choix.","story"],
   ["Messages","Ouvre un compagnon pour discuter. Double-tape un message pour mettre un ❤️. 📞 et 📹 lancent un appel, 🎤 envoie un vocal.","chat"],
   ["Carte","Vois où sont tes compagnons. Pour te cacher, active le mode fantôme dans Profil.","map"],
-  ["Profil","Change ton avatar, suis ton score et tes trophées, retrouve tes Archives et règle l’appli. Tu peux rouvrir ce guide ici à tout moment.","prof"]
+  ["Profil & Serveur","Change ton avatar, suis tes trophées, retrouve tes Archives. Le bouton 🌐 (en bas à droite) configure la connexion au serveur Python.","prof"]
 ];
 let ti=0;
 function tour(i){
@@ -722,6 +773,26 @@ function tour(i){
 function endTour(){$("#tour").classList.remove("on");S.guide=1;save();go("story")}
 $("#tNext").onclick=()=>ti<TOUR.length-1?tour(ti+1):endTour();
 $("#tSkip").onclick=endTour;
+/* FAB */
+$("#fabPub").onclick=()=>openPub();
+$("#fabProf").onclick=()=>go("prof");
+$("#fabGuide").onclick=()=>tour(0);
+$("#fabSrv").onclick=()=>{$("#srvUrl").value=localStorage.getItem("medieval_url")||"";$("#srvPanel").classList.add("on")};
+$("#srvClose").onclick=()=>$("#srvPanel").classList.remove("on");
+$("#srvSave").onclick=async()=>{
+  const u=$("#srvUrl").value.trim().replace(/\/$/,"");
+  if(!u){toast("URL vide");return}
+  localStorage.setItem("medieval_url",u);
+  await reconnect(u);
+  $("#srvPanel").classList.remove("on");
+};
+$("#srvTest").onclick=async()=>{
+  const u=$("#srvUrl").value.trim().replace(/\/$/,"");
+  if(!u){toast("URL vide");return}
+  const r=await tryHealth(u);
+  if(r){toast("Serveur joignable ✓");API.ok=true;API.url=u;SERVERS.forEach(s=>S.srv[s[0]]=!!r[s[0]]);status();drawCtrl()}
+  else toast("Serveur injoignable ✗");
+};
 /* ===== réseau social : publier, commenter, suivre, sons, vidéos ===== */
 S.posts=S.posts||[];S.cm=S.cm||{};S.sh=S.sh||{};S.name=S.name||"moi_chevalier";S.bk=S.bk||{};S.sound=!!S.sound;
 let tabF=1,curId=null,editId=null,pk="short",pfile=null,paudio=null,pdur=0,replyTo=null,cmId=null,lvP=null,io=null,ac=null,sg=null,aud=null;
@@ -827,7 +898,6 @@ function drawSpot(){
   }
   L.forEach(p=>el.appendChild(card(p)));
   el.scrollTop=st;
-  /* FIX : ne pas couper le son si la carte visible n’a pas changé */
   if(prevId!==curId){stopSong()}
   watch();
 }
@@ -937,7 +1007,6 @@ $("#psong").innerHTML='<option value="">Aucune mélodie</option>'+SONGS.map((s,i
 function setKind(k){
   pk=k;
   document.querySelectorAll("#pkind .chip").forEach(b=>b.classList.toggle("on",b.dataset.k==k));
-  /* FIX : autoriser le remplacement du média en édition */
   $("#pfile").style.display=(k=="text")?"none":"block";
   $("#pfile").accept=k=="photo"?"image/*":"video/*";
   if(!pfile)$("#pinfo").textContent=k=="short"?"Sceau vidéo de 60 secondes maximum.":k=="long"?"Chronique de 200 minutes maximum.":k=="photo"?"Une enluminure.":"Le parchemin s’écrit dans le titre.";
@@ -994,7 +1063,6 @@ $("#pgo").onclick=async()=>{
     if(editId){
       const p=S.posts.find(x=>x.id==editId);if(!p)return;
       if(pfile){
-        /* FIX : permettre le remplacement du média en édition */
         await idb.tx("readwrite",s=>s.put(pfile,p.id));
         delete urls[p.id];
         if(pkind=="photo")p.kind="photo";
@@ -1054,10 +1122,20 @@ function profExtra(){
   });
 }
 go("story");
-const API={ok:false,tok:null};
-async function call(p,b){
+/* ===== connexion serveur ===== */
+const API={ok:false,tok:null,url:null};
+async function tryHealth(u){
   try{
-    const r=await fetch(p,{
+    const r=await fetch(u+"/api/health",{cache:"no-store"});
+    if(!r.ok)return null;
+    const j=await r.json();
+    return j&&j.servers?j.servers:null;
+  }catch(e){return null}
+}
+async function call(p,b){
+  if(!API.url)return null;
+  try{
+    const r=await fetch(API.url+p,{
       method:b?"POST":"GET",
       headers:Object.assign({"Content-Type":"application/json"},API.tok?{Authorization:"Bearer "+API.tok}:{}),
       body:b?JSON.stringify(b):undefined
@@ -1065,39 +1143,75 @@ async function call(p,b){
     return await r.json();
   }catch(e){return null}
 }
+async function reconnect(u){
+  const servers=await tryHealth(u);
+  if(!servers){
+    API.ok=false;API.url=null;
+    SERVERS.forEach(s=>S.srv[s[0]]=false);
+    status();log("Serveur injoignable : "+u,1);toast("Serveur injoignable");
+    return false;
+  }
+  API.ok=true;API.url=u;
+  SERVERS.forEach(s=>S.srv[s[0]]=!!servers[s[0]]);
+  status();log("Connecté à "+u);
+  // auth
+  let g=null;
+  try{g=JSON.parse(localStorage.getItem("medievalg"))}catch(e){}
+  if(!g){
+    g={u:"chevalier"+Math.random().toString(36).slice(2,8),p:(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)+Date.now())};
+    await call("/api/register",{user:g.u,pw:g.p});
+    try{localStorage.setItem("medievalg",JSON.stringify(g))}catch(e){}
+  }
+  const l=await call("/api/login",{user:g.u,pw:g.p});
+  API.tok=l&&l.token;
+  log(API.tok?"Sceau royal validé":"Connexion refusée",!API.tok);
+  drawCtrl();
+  return true;
+}
+/* détection auto : localhost puis URL sauvegardée */
+async function autoConnect(){
+  const saved=localStorage.getItem("medieval_url");
+  const candidates=[];
+  if(saved)candidates.push(saved);
+  if(location.hostname==="localhost"||location.hostname==="127.0.0.1")candidates.push("http://localhost:8000");
+  if(location.protocol==="http:"||location.protocol==="https:"){
+    // même origine (si server.py sert aussi index.html)
+    candidates.push(location.origin);
+  }
+  for(const u of candidates){
+    const clean=u.replace(/\/$/,"");
+    const ok=await tryHealth(clean);
+    if(ok){
+      await reconnect(clean);
+      return true;
+    }
+  }
+  return false;
+}
 async function boot(){
   const bar=$("#bar"),bl=$("#bootLog");
   requestAnimationFrame(()=>requestAnimationFrame(()=>bar.style.width="100%"));
   const say=m=>{const d=document.createElement("div");d.textContent="› "+m;bl.appendChild(d);bl.scrollTop=1e9};
-  const h=location.protocol.indexOf("http")==0?await call("/api/health"):null;
-  API.ok=!!(h&&h.servers);
-  say(API.ok?"Royaume connecté":"Royaume isolé : mode local");
-  if(API.ok){
-    let g=null;
-    try{g=JSON.parse(localStorage.getItem("medievalg"))}catch(e){}
-    if(!g){
-      g={u:"chevalier"+Math.random().toString(36).slice(2,8),p:(crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)+Date.now())};
-      await call("/api/register",{user:g.u,pw:g.p});
-      try{localStorage.setItem("medievalg",JSON.stringify(g))}catch(e){}
-    }
-    const l=await call("/api/login",{user:g.u,pw:g.p});
-    API.tok=l&&l.token;
-    say(API.tok?"Sceau royal validé":"Connexion refusée");
-    SERVERS.forEach(s=>S.srv[s[0]]=!!h.servers[s[0]]);
+  say("Ouverture du royaume…");
+  const ok=await autoConnect();
+  if(ok){
+    say("Royaume connecté au serveur");
+  } else {
+    say("Aucun serveur détecté — mode local");
+    say("Configure l’URL via le bouton 🌐");
+    SERVERS.forEach(s=>S.srv[s[0]]=false);
   }
-  SERVERS.forEach((s,i)=>setTimeout(()=>say(s[1]+" … "+(S.srv[s[0]]?"OK":"assiégée")),1800+i*1300));
-  setTimeout(()=>say("Prêt. Bienvenue sur Medieval"),13200);
+  say("Prêt. Bienvenue sur Medieval");
   setTimeout(()=>{
     $("#boot").classList.add("off");
     drawCtrl();status();
-    log(API.ok?"Royaume serveur actif":"Mode local (lance server.py)");
+    log(API.ok?"Royaume connecté à "+API.url:"Mode local (lance server.py puis 🌐)");
     if(!S.guide)tour(0);
-  },15000);
+  },1600);
 }
 boot();
 apply();drawSnaps();drawCtrl();status();
 log("Démarrage Medieval · "+SERVERS.length+" forteresses, "+TOG.length+" décrets");
-SERVERS.forEach(s=>log(s[1]+" connectée"));
 </script>
 <script>
 document.getElementById("dlpy").onclick=function(){
@@ -1109,7 +1223,7 @@ document.getElementById("dlpy").onclick=function(){
   setTimeout(function(){URL.revokeObjectURL(u)},1000);
 };
 </script>
-<!-- ===== BACKEND PYTHON (server.py) intégré : à enregistrer à côté de ce fichier, puis : python3 server.py ===== -->
+<!-- ===== BACKEND PYTHON (server.py) intégré ===== -->
 <script type="text/plain" id="serverpy">
 #!/usr/bin/env python3
 """Medieval – backend Python (bibliothèque standard uniquement).
@@ -1137,7 +1251,6 @@ def q(sql, args=(), one=False, many=False):
     finally:
         c.close()
 
-# Initialisation
 for s in (
     "create table if not exists users(id integer primary key, name text unique, salt blob, hash blob)",
     "create table if not exists sessions(token text primary key, uid integer, exp real)",
@@ -1146,7 +1259,6 @@ for s in (
 ):
     q(s)
 
-# Purge des sessions expirées au démarrage
 q("delete from sessions where exp < ?", (time.time(),))
 
 def pbkdf(pw, salt):
@@ -1161,20 +1273,25 @@ class H(BaseHTTPRequestHandler):
         self.send_response(code)
         self.send_header("Content-Type", ctype + ("; charset=utf-8" if "json" in ctype or "html" in ctype else ""))
         self.send_header("Content-Length", str(len(body)))
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "DENY")
         self.send_header("Referrer-Policy", "no-referrer")
-        self.send_header("Content-Security-Policy", "default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'")
         for k, v in (extra or {}).items(): self.send_header(k, v)
-        self.end_headers(); self.wfile.write(body)
+        self.end_headers()
+        if self.command != "HEAD":
+            self.wfile.write(body)
+
+    def do_OPTIONS(self):
+        self.out(204, b"")
 
     def limited(self):
         ip, now = self.client_address[0], time.time()
         h = [t for t in HITS.get(ip, []) if now - t < 60]
         h.append(now); HITS[ip] = h
-        # FIX : purge périodique pour éviter la fuite mémoire
         if len(HITS) > 10_000:
-            cutoff = now - 120
             HITS.clear()
         return len(h) > 120
 
